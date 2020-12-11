@@ -18,7 +18,7 @@ const doctorSchema = new mongoose.Schema({
   medtype: String,
   licenseNo:String,
   TimingFrom:Number,
-  TimingTo:Number
+  TimingTo:Number,
 });
 
 const Doctor = mongoose.model("doctor", doctorSchema);
