@@ -6,18 +6,36 @@
   </head>
   <body>
     <h1>Doctor SignUp</h1>
-    <form class="doctor signup" action="/doctor" method="post">
+    <form class="doctor signup" action="\" method="post" >
+
       <input type="text" name="doctorName" placeholder="Doctor Name"><br>
+
       <input type="number" name="doctorPhone" placeholder="Phone Number"><br>
+
       <input type="checkbox" name="medtype" value="Pediatrics">
       <label for="medtype">Pediatrics</label><br>
+
       <input type="checkbox" name="medtype" value="General Physician">
       <label for="medtype">General Physician</label><br>
+
       <input type="checkbox" name="medtype" value="Pulmonology">
       <label for="medtype">Pulmonology</label><br>
+
       <input type="checkbox" name="medtype" value="Cardiology">
       <label for="medtype">Cardiology</label><br>
-      <button type="submit" name="doctorButton">Sign Up</button>
+
+      <input type="number" name="licenseNo" placeholder="License Number" >
+
+      <input type="text" name="hospital" placeholder="Hospital at which you practice" >
+
+      <input type="time"  name="TimingTo" min="08:00" max="22:00" placeholder="Start Timimg" >
+      <label for="TimingTo">Start Timing</label>
+      <input type="time"  name="TimingFrom" min="08:00" max="22:00" placeholder="End Timimg" >
+      <label for="TimingTo">End Timing</label>
+
+      <input type="number" name="Experiance" value="Experiance in years">
+
+      <button class="btn btn-dark btn-lg" type="submit" name="doctorButton">Sign Up</button>
     </form>
   </body>
 </html>
