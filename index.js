@@ -17,8 +17,10 @@ const doctorSchema = new mongoose.Schema({
   phone: Number,
   medtype: String,
   licenseNo:String,
+  hospital:String,
   TimingFrom:Number,
   TimingTo:Number,
+  Experiance:Number
 });
 
 const Doctor = mongoose.model("doctor", doctorSchema);
@@ -32,8 +34,11 @@ app.post('/', function(req, res){
     name: req.body.doctorName,
     phone: req.body.doctorPhone,
     medtype: req.body.medtype,
-
-
+    licenseNo:req.body.licenseNo,
+    hospital:req.body.hospital,
+    TimingFrom:req.body.TimingFrom,
+    TimingTo:req.body.TimingTo,
+    Experiance:req.body.Experiance
   })
 
   doc.save(res.render("success"));
