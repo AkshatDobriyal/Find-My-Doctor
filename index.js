@@ -17,8 +17,6 @@ const doctorSchema = new mongoose.Schema({
   name: String,
   phone: Number,
   medtype: String,
-  starttime: String,
-  endtime: String
 })
 
 const Doctor = mongoose.model("doctor", doctorSchema)
@@ -33,8 +31,6 @@ app.route('/doctor')
       name: req.body.doctorName,
       phone: req.body.doctorPhone,
       medtype: req.body.medtype,
-      start: req.body.startTime,
-      end: req.body.endTime
     })
 
     doc.save(res.render("success"));
