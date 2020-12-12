@@ -140,12 +140,20 @@ app.route('/appointment')
   .post(function(req, res){
     const appoint = Appointment({
       age:req.body.age,
-      doc:req.body.doc,
+      doc:req.body.wishdoctor,
       symptoms:req.body.symptoms,
       timings:req.body.timeSlot
     })
 
-    appoint.save(res.render("Success"))
+    appoint.save()
+
+    Doctor.find({medtype: req.body.wishdoctor}, function(err, patdoc){
+      if(!err){
+        res.send(patdoc)
+      } else {
+        console.log(err)
+      }
+    })
   })
 
 app.listen(3000, function(err){
