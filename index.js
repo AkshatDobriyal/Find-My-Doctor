@@ -17,6 +17,11 @@ const doctorSchema = new mongoose.Schema({
   name: String,
   phone: Number,
   medtype: String,
+  licenseNo:String,
+  hospital:String,
+  TimingFrom:String,
+  TimingTo:String,
+  Experiance:Number
 })
 
 const Doctor = mongoose.model("doctor", doctorSchema)
@@ -31,6 +36,11 @@ app.route('/doctor')
       name: req.body.doctorName,
       phone: req.body.doctorPhone,
       medtype: req.body.medtype,
+      licenseNo:req.body.licenseNo,
+      hospital:req.body.hospital,
+      TimingFrom:req.body.TimingFrom,
+      TimingTo:req.body.TimingTo,
+      Experiance:req.body.Experiance
     })
 
     doc.save(res.render("success"));
