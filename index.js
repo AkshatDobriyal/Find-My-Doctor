@@ -117,7 +117,7 @@ app.route('/loginmem')
          } else {
            let obj = member
            if(obj.password == loginpassword){
-             res.render("patdoc")
+             res.redirect("/appointment")
            } else {
              res.redirect('/loginmem')
            }
