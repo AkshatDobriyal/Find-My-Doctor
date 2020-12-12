@@ -1,3 +1,4 @@
+
 const express = require("express")
 const bodyParser = require("body-parser")
 const mongoose = require("mongoose")
@@ -15,24 +16,55 @@ app.use(express.static("public"))
 const doctorSchema = new mongoose.Schema({
   name: String,
   phone: Number,
-  medtype: String
+  medtype: String,
+  starttime: String,
+  endtime: String
 })
 
 const Doctor = mongoose.model("doctor", doctorSchema)
 
-app.get('/doctor', function(req, res){
-  res.render("doctor")
-})
-
-app.post('/doctor', function(req, res){
-  let doc = Doctor({
-    name: req.body.doctorName,
-    phone: req.body.doctorPhone,
-    medtype: req.body.medtype
+app.route('/doctor')
+  .get(function(req, res){
+    res.render("doctor")
   })
 
-  doc.save(res.render("success"));
-})
+  .post(function(req, res){
+    let doc = Doctor({
+      name: req.body.doctorName,
+      phone: req.body.doctorPhone,
+      medtype: req.body.medtype,
+      start: req.body.startTime,
+      end: req.body.endTime
+    })
+
+    doc.save(res.render("success"));
+  })
+
+app.route('/logindoc')
+  .get(function(req, res){
+    res.render("login-doc")
+  })
+
+  .post(function(req, res){
+    let loginname = req.body.docName;
+    let loginphone = req.body.docNumber;
+    Doctor.findOne({name: loginname},function(err, doctor){
+      if(!err){
+        if(doctor == null){
+          res.redirect('/logindoc')
+        } else {
+          let obj = doctor
+          if(obj.phone == loginphone){
+            res.render("success")
+          } else {
+            res.redirect('/logindoc')
+          }
+        }
+      } else {
+        console.log(err)
+      }
+    })
+  })
 
 const memberSchema = new mongoose.Schema({
   name: String,
@@ -43,11 +75,12 @@ const memberSchema = new mongoose.Schema({
 
 const Member = mongoose.model("member", memberSchema)
 
-app.get('/member', function(req, res){
-    res.render("member")
-})
+app.route('/member')
+  .get(function(req, res){
+      res.render("member")
+  })
 
-app.post('/member', function(req, res){
+  .post(function(req, res){
       let memb = Member({
         name: req.body.patientName,
         password: req.body.patientPassword,
@@ -56,7 +89,58 @@ app.post('/member', function(req, res){
       })
 
       memb.save(res.render("success"))
+  })
+
+app.route('/loginmem')
+   .get(function(req, res){
+     res.render("login-mem")
+   })
+
+   .post(function(req, res){
+     let loginname = req.body.membName;
+     let loginpassword = req.body.membPassword;
+     Member.findOne({name: loginname},function(err, member){
+       if(!err){
+         if(member == null){
+           res.redirect('/loginmem')
+         } else {
+           let obj = member
+           if(obj.password == loginpassword){
+             res.render("success")
+           } else {
+             res.redirect('/loginmem')
+           }
+         }
+       } else {
+         console.log(err)
+       }
+     })
+   })
+
+const appointmentSchema = mongoose.Schema({
+  age: Number,
+  doc: String,
+  symptoms: String,
+  timings: String
 })
+
+const Appointment = mongoose.model('appointment', appointmentSchema)
+
+app.route('/appointment')
+  .get(function(req, res){
+    res.render("patdoc")
+  })
+
+  .post(function(req, res){
+    const appoint = Appointment({
+      age:req.body.age,
+      doc:req.body.doc,
+      symptoms:req.body.symptoms,
+      timings:req.body.timeSlot
+    })
+
+    appoint.save(res.render("Success"))
+  })
 
 app.listen(3000, function(err){
   console.log("The server is listening")
