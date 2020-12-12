@@ -26,6 +26,11 @@ const doctorSchema = new mongoose.Schema({
 
 const Doctor = mongoose.model("doctor", doctorSchema)
 
+app.route("/")
+  .get(function(req, res){
+    res.render("home")
+  })
+
 app.route('/doctor')
   .get(function(req, res){
     res.render("doctor")
@@ -112,7 +117,7 @@ app.route('/loginmem')
          } else {
            let obj = member
            if(obj.password == loginpassword){
-             res.render("success")
+             res.render("patdoc")
            } else {
              res.redirect('/loginmem')
            }
