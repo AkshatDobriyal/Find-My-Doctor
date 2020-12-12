@@ -1,4 +1,3 @@
-
 const express = require("express")
 const bodyParser = require("body-parser")
 const mongoose = require("mongoose")
@@ -109,14 +108,14 @@ app.route('/loginmem')
 
    .post(function(req, res){
      let loginname = req.body.membName;
-     let loginpassword = req.body.membPassword;
+     let loginphone = req.body.membPassword;
      Member.findOne({name: loginname},function(err, member){
        if(!err){
          if(member == null){
-           res.redirect('/loginmem')
+           res.redirect('success')
          } else {
            let obj = member
-           if(obj.password == loginpassword){
+           if(obj.password == loginphone){
              res.redirect("/appointment")
            } else {
              res.redirect('/loginmem')
